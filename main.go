@@ -1,20 +1,21 @@
 package main
 
 import (
-	"fmt"
+	"flag"
 	"sync"
 
 	dri "github.com/anthony-barret/dri/download-reddit-images"
 )
 
 func main() {
-	fmt.Println("DRI")
-	subReddits := dri.ParseConfig("./conf.txt")
+	var configFile string
+	flag.StringVar(&configFile, "config", "config.yaml", "The configuration file")
+	flag.Parse()
+	config := dri.ParseConfig(configFile)
 	var images []string
 	images = make([]string, 0)
-	for _, sub := range subReddits {
+	for _, sub := range config.SubReddits {
 		imageLinks := dri.GetImagesLinksFromSubreddit(sub)
-		fmt.Println(imageLinks)
 		images = append(images, imageLinks...)
 	}
 	var wg sync.WaitGroup
@@ -22,7 +23,7 @@ func main() {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			dri.DownloadImage(img)
+			dri.DownloadImage(img, config.Config.Directory)
 		}()
 	}
 	wg.Wait()
