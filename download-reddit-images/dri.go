@@ -28,6 +28,15 @@ func GetImagesLinksFromSubreddit(subRedditLink string) []string {
 }
 
 func DownloadImage(imageLink string, directory string) {
+	fileName := path.Join(directory, path.Base(imageLink))
+	// check if file already exists
+	_, err := os.Stat(fileName)
+	if !os.IsNotExist(err) {
+		log.Println("The file", path.Base(imageLink), "has already been downloaded")
+		return
+	} else {
+		log.Println("Downloading file", path.Base(imageLink))
+	}
 	response, err := http.Get(imageLink)
 	if err != nil {
 		log.Fatalln("Error when requesting", imageLink)
@@ -37,7 +46,6 @@ func DownloadImage(imageLink string, directory string) {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	fileName := path.Join(directory, path.Base(imageLink))
 	file, err := os.Create(fileName)
 	if err != nil {
 		log.Fatalln("Error creating file", err)
