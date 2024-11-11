@@ -1,8 +1,11 @@
 package downloadredditimages
 
 import (
+	"encoding/json"
 	"fmt"
+	"io"
 	"log"
+	"net/http"
 	"os"
 	"strings"
 )
@@ -46,4 +49,22 @@ func ParseConfig(configFile string) []string {
 	}
 	// Return list of subreddits
 	return links
+}
+
+func GetImagesLinksFromSubreddit(subredditLink string) []string {
+	response, err := http.Get(subredditLink)
+	if err != nil {
+		log.Fatalln("Error when requesting", subredditLink)
+	}
+	defer response.Body.Close()
+	body, err := io.ReadAll(response.Body)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	var redditJsonPage RedditResponse
+	err = json.Unmarshal(body, &redditJsonPage)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	return redditJsonPage.GetLinks()
 }
