@@ -27,7 +27,7 @@ func GetImagesLinksFromSubreddit(subRedditLink string) []string {
 	return redditJsonPage.GetLinks()
 }
 
-func DownloadImage(imageLink string) {
+func DownloadImage(imageLink string, directory string) {
 	response, err := http.Get(imageLink)
 	if err != nil {
 		log.Fatalln("Error when requesting", imageLink)
@@ -37,7 +37,7 @@ func DownloadImage(imageLink string) {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	fileName := "img/" + path.Base(imageLink)
+	fileName := path.Join(directory, path.Base(imageLink))
 	file, err := os.Create(fileName)
 	if err != nil {
 		log.Fatalln("Error creating file", err)
