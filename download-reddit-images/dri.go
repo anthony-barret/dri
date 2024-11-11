@@ -9,10 +9,10 @@ import (
 	"path"
 )
 
-func GetImagesLinksFromSubreddit(subredditLink string) []string {
-	response, err := http.Get(subredditLink)
+func GetImagesLinksFromSubreddit(subRedditLink string) []string {
+	response, err := http.Get(subRedditLink)
 	if err != nil {
-		log.Fatalln("Error when requesting", subredditLink)
+		log.Fatalln("Error when requesting", subRedditLink)
 	}
 	defer response.Body.Close()
 	body, err := io.ReadAll(response.Body)
