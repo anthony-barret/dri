@@ -1,0 +1,7 @@
+config:
+  directory: img
+  limit: 10
+
+subreddits:
+  - memes
+  - programminghumour
