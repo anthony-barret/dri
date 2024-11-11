@@ -7,6 +7,26 @@ import (
 	"strings"
 )
 
+type RedditResponse struct {
+	Data struct {
+		Children []struct {
+			Data struct {
+				URL string `json:"url"`
+			} `json:"data"`
+		} `json:"children"`
+	} `json:"data"`
+}
+
+func (r RedditResponse) GetLinks() []string {
+	var links []string
+	for _, child := range r.Data.Children {
+		if strings.HasSuffix(child.Data.URL, ".jpg") || strings.HasSuffix(child.Data.URL, ".png") {
+			links = append(links, string(child.Data.URL))
+		}
+	}
+	return links
+}
+
 func ParseConfig(configFile string) []string {
 	// Read config file
 	fmt.Println(configFile)
