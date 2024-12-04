@@ -15,7 +15,7 @@ type RedditResponse struct {
 func (rr RedditResponse) GetLinks() []string {
 	var links []string
 	for _, child := range rr.Data.Children {
-		if strings.HasSuffix(child.Data.URL, ".jpg") || strings.HasSuffix(child.Data.URL, ".png") {
+		if strings.HasSuffix(child.Data.URL, ".jpg") || strings.HasSuffix(child.Data.URL, ".jpeg") || strings.HasSuffix(child.Data.URL, ".png") {
 			links = append(links, string(child.Data.URL))
 		}
 	}
