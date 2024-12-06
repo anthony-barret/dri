@@ -12,6 +12,7 @@ type Config struct {
 	Config struct {
 		Directory string `yaml:"directory"`
 		Limit     int    `yaml:"limit"`
+		Over18    bool   `yaml:"over_18"`
 	} `yaml:"config"`
 	SubReddits []string `yaml:"subreddits"`
 }

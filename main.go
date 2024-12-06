@@ -15,7 +15,7 @@ func main() {
 	var images []string
 	images = make([]string, 0)
 	for _, sub := range config.SubReddits {
-		imageLinks := dri.GetImagesLinksFromSubreddit(sub)
+		imageLinks := dri.GetImagesLinksFromSubreddit(config, sub)
 		images = append(images, imageLinks...)
 	}
 	var wg sync.WaitGroup

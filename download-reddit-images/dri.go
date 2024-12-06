@@ -9,7 +9,7 @@ import (
 	"path"
 )
 
-func GetImagesLinksFromSubreddit(subRedditLink string) []string {
+func GetImagesLinksFromSubreddit(config Config, subRedditLink string) []string {
 	response, err := http.Get(subRedditLink)
 	if err != nil {
 		log.Fatalln("Error when requesting", subRedditLink)
@@ -24,7 +24,7 @@ func GetImagesLinksFromSubreddit(subRedditLink string) []string {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	return redditJsonPage.GetLinks()
+	return redditJsonPage.GetLinks(config)
 }
 
 func DownloadImage(imageLink string, directory string) {
