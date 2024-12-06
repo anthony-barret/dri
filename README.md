@@ -27,6 +27,7 @@ named `config.yaml` in the current directory.
 config:
   directory: img
   limit: 10
+  over_18: no
 
 subreddits:
   - memes
@@ -37,7 +38,8 @@ The configuration is in the YAML format and is composed of 2 sections.
 
 First, the section `config` is composed of the parameter `directory` which is
 the name of the directory to save the images downloaded during the program
-execution and `limit` the maximum number of images to download by subreddits.
+execution, `limit` the maximum number of images to download by subreddits,
+`over_18` allows to filter NSFW contents.
 
 The section `subreddits` is simply a list of subreddits that you want to
 download the images from.
