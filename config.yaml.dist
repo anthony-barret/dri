@@ -1,6 +1,7 @@
 config:
   directory: img
   limit: 10
+  over_18: no
 
 subreddits:
   - memes
