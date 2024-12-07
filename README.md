@@ -27,6 +27,7 @@ named `config.yaml` in the current directory.
 config:
   directory: img
   limit: 10
+  sort_by: hot
   over_18: no
 
 subreddits:
@@ -36,10 +37,13 @@ subreddits:
 
 The configuration is in the YAML format and is composed of 2 sections.
 
-First, the section `config` is composed of the parameter `directory` which is
-the name of the directory to save the images downloaded during the program
-execution, `limit` the maximum number of images to download by subreddits,
-`over_18` allows to filter NSFW contents.
+First, the section `config` is composed of multiples parameters:
+- `directory`: the name of the directory to save the images downloaded during
+the program execution (string)
+- `limit` the maximum number of images to download by subreddits (int)
+- `sort_by` the way to sort the reddit feed;
+the values can be "hot", "new", "top", "rising"
+- `over_18` allows to filter NSFW contents (boolean)
 
 The section `subreddits` is simply a list of subreddits that you want to
 download the images from.
