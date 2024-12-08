@@ -2,7 +2,6 @@ package downloadredditimages
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"strconv"
 
@@ -36,15 +35,15 @@ type Config struct {
 	SubReddits []string `yaml:"subreddits"`
 }
 
-func ParseConfig(configFile string) Config {
+func ParseConfig(configFile string) (Config, error) {
 	var config Config
 	data, err := os.ReadFile(configFile)
 	if err != nil {
-		log.Fatalln("Cannot read the configuration file", err)
+		return Config{}, err
 	}
 	err = yaml.Unmarshal(data, &config)
 	if err != nil {
-		log.Fatalln("Cannot parse the configuration file", err)
+		return Config{}, err
 	}
 	links := make([]string, 0)
 	for _, sub := range config.SubReddits {
@@ -52,5 +51,5 @@ func ParseConfig(configFile string) Config {
 		links = append(links, link)
 	}
 	config.SubReddits = links
-	return config
+	return config, nil
 }
